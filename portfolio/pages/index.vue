@@ -15,6 +15,9 @@
     </div>
 
     <div id="rightArea">
+      <div class="content">
+        {{ mainPerson }}
+      </div>
     </div>
   </div>
 </template>
@@ -22,8 +25,6 @@
 <script>
 
 let children;
-// childrenArrayはdomの状態を管理するための配列
-let childrenArray = [];
 
 export default {
   name: 'index',
@@ -51,78 +52,96 @@ export default {
         },
         {
           name: 'user7'
+        },
+        {
+          name: 'user8'
         }
-      ]
+      ],
+      // domの状態を管理するための配列
+      childrenArray: []
+    }
+  },
+
+  computed: {
+    mainPerson: function() {
+      let tmp = this.childrenArray.indexOf(3);
+
+      if(tmp == -1) {
+        return '';
+      }
+      else {
+        return this.users[tmp].name;
+      }
     }
   },
 
   methods: {
     upUsers: function() {
-      if(childrenArray[0] > 0) {
-        childrenArray.unshift(childrenArray[0]-1);
-        childrenArray.pop();
+      if(this.childrenArray[0] > 0) {
+        this.childrenArray.unshift(this.childrenArray[0]-1);
+        this.childrenArray.pop();
       }
       else {
-        childrenArray.unshift(0);
-        childrenArray.pop();
+        this.childrenArray.unshift(0);
+        this.childrenArray.pop();
       }
 
-      console.log(childrenArray)
+      console.log(this.childrenArray)
 
       for(let i = 0; i < this.users.length; i++) {
-        if(i == childrenArray.length-1) {
+        if(i == this.childrenArray.length-1) {
           console.log("if")
-          if(childrenArray[i] == 6) {
+          if(this.childrenArray[i] == 6) {
             console.log(6)
             children[i].classList.remove('child-6');
           }
-          else if(childrenArray[i+1] == 0) {
+          else if(this.childrenArray[i+1] == 0) {
             children[i].classList.remove('child-0');
           }
           else {
-            console.log(childrenArray[i])
-            children[i].classList.remove('child-'+(childrenArray[i]+1));
+            console.log(this.childrenArray[i])
+            children[i].classList.remove('child-'+(this.childrenArray[i]+1));
           }
         }
         else {
-          children[i].classList.remove('child-'+childrenArray[i+1])
+          children[i].classList.remove('child-'+this.childrenArray[i+1])
         }
-        children[i].classList.add('child-'+childrenArray[i]);
+        children[i].classList.add('child-'+this.childrenArray[i]);
         console.log(children[i].classList)
       }
     },
 
     downUsers: function() {
-      if(childrenArray[childrenArray.length-1] > 5) {
-        childrenArray.push(6);
-        childrenArray.shift();
+      if(this.childrenArray[this.childrenArray.length-1] > 5) {
+        this.childrenArray.push(6);
+        this.childrenArray.shift();
       }
       else {
-        childrenArray.push(childrenArray[childrenArray.length-1]+1);
-        childrenArray.shift();
+        this.childrenArray.push(this.childrenArray[this.childrenArray.length-1]+1);
+        this.childrenArray.shift();
       }
 
-      console.log(childrenArray)
+      console.log(this.childrenArray)
 
       for(let i = this.users.length-1; i > -1; i--) {
         if(i == 0) {
           console.log("if")
-          if(childrenArray[i] == 0) {
+          if(this.childrenArray[i] == 0) {
             children[i].classList.remove('child-0');
           }
-          else if(childrenArray[i-1] == 6) {
+          else if(this.childrenArray[i-1] == 6) {
             children[i].classList.remove('child-6');
           }
           else {
-            children[i].classList.remove('child-'+(childrenArray[i]-1))
-            console.log(childrenArray[i]);
+            children[i].classList.remove('child-'+(this.childrenArray[i]-1))
+            console.log(this.childrenArray[i]);
           }
         }
         else {
           console.log("else")
-          children[i].classList.remove('child-'+childrenArray[i-1])
+          children[i].classList.remove('child-'+this.childrenArray[i-1])
         }
-        children[i].classList.add('child-'+childrenArray[i]);
+        children[i].classList.add('child-'+this.childrenArray[i]);
         //console.log(children[i].classList)
       }
     }
@@ -132,8 +151,8 @@ export default {
     // domを取得する
     for(let i = 0; i < this.users.length; i++) {
       children = document.getElementsByClassName("children");
-      childrenArray.push(6);
-      children[i].classList.add('child-'+childrenArray[i])
+      this.childrenArray.push(6);
+      children[i].classList.add('child-'+this.childrenArray[i])
     }
 
     for(let i = 0; i < 5; i++) {
@@ -180,7 +199,7 @@ export default {
     .arrowup {
       position: absolute;
 
-      left: 45%;
+      left: 44%;
       top: -2%;
 
       width: 0;
@@ -194,15 +213,27 @@ export default {
       cursor: pointer;
     }
 
+    .arrowup:hover {
+      border-bottom: solid 40px #90abcc;
+    }
+
     .child {
       position: absolute;
 
-      left: 40%;
+      left: 50%;
       top: 50%;
 
-      transform: translateY(-50%);
-      -webkit-transform: translateY(-50%);
-      -moz-transform: translate(-50%);
+      transform: translate(-50%, -50%);
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+
+      text-align: center;
+
+      transition: .1s;
+    }
+
+    .children {
+      transition: .3s;
     }
 
     .child-0 {
@@ -324,7 +355,7 @@ export default {
     .arrowdown {
       position: absolute;
 
-      left: 45%;
+      left: 44%;
       bottom: -2%;
 
       width: 0;
@@ -336,6 +367,10 @@ export default {
       border-top: solid 40px #697b91;
 
       cursor: pointer;
+    }
+
+    .arrowdown:hover {
+      border-top: solid 40px #90abcc;
     }
   }
 
@@ -351,6 +386,18 @@ export default {
     background: -moz-linear-gradient(top, $dark_primary, $light_primary);
     background: -webkit-linear-gradient(top, $dark_primary, $light_primary);
     background: linear-gradient(to bottom, $dark_primary, $light_primary);
+
+    .content {
+      position: absolute;
+
+      top: 12%;
+      left: 7%;
+
+      width: 86%;
+      height: 76%;
+
+      background-color: $light_gray;
+    }
   }
 }
 </style>
