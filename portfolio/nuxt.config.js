@@ -1,5 +1,5 @@
 
-export default {
+module.exports = {
   mode: 'spa',
   /*
   ** Headers of the page
@@ -48,5 +48,17 @@ export default {
     */
     extend (config, ctx) {
     }
+  }
+}
+
+module.exports = {
+  modules: [
+    '@nuxtjs/style-resources'
+  ],
+
+  styleResources: {
+    scss: [
+      '~/assets/scss/palette.scss',
+    ]
   }
 }
