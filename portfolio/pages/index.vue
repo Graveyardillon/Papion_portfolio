@@ -10,8 +10,8 @@
         <div class="child">{{user.name}}</div>
       </div>
 
-      <div class="arrowup" @click="upUsers()"></div>
-      <div class="arrowdown" @click="downUsers()"></div>
+      <div class="arrowup" @click="downUsers()"></div>
+      <div class="arrowdown" @click="upUsers()"></div>
     </div>
 
     <div id="rightArea">
