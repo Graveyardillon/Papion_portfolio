@@ -70,46 +70,60 @@ export default {
       console.log(childrenArray)
 
       for(let i = 0; i < this.users.length; i++) {
-        if(i == childrenArray.length+1) {
+        if(i == childrenArray.length-1) {
+          console.log("if")
           if(childrenArray[i] == 6) {
+            console.log(6)
             children[i].classList.remove('child-6');
           }
-          else if(childrenArray[i+1] == 0){
+          else if(childrenArray[i+1] == 0) {
             children[i].classList.remove('child-0');
+          }
+          else {
+            console.log(childrenArray[i])
+            children[i].classList.remove('child-'+(childrenArray[i]+1));
           }
         }
         else {
           children[i].classList.remove('child-'+childrenArray[i+1])
         }
         children[i].classList.add('child-'+childrenArray[i]);
+        console.log(children[i].classList)
       }
     },
 
     downUsers: function() {
-      if(childrenArray[0] < 0) {
-        childrenArray.unshift(childrenArray[0]-1);
-        childrenArray.pop();
+      if(childrenArray[childrenArray.length-1] > 5) {
+        childrenArray.push(6);
+        childrenArray.shift();
       }
       else {
-        childrenArray.unshift(0);
-        childrenArray.pop();
+        childrenArray.push(childrenArray[childrenArray.length-1]+1);
+        childrenArray.shift();
       }
 
       console.log(childrenArray)
 
-      for(let i = 0; i < this.users.length; i++) {
-        if(i == childrenArray.length+1) {
-          if(childrenArray[i] == 6) {
+      for(let i = this.users.length-1; i > -1; i--) {
+        if(i == 0) {
+          console.log("if")
+          if(childrenArray[i] == 0) {
+            children[i].classList.remove('child-0');
+          }
+          else if(childrenArray[i-1] == 6) {
             children[i].classList.remove('child-6');
           }
-          else if(childrenArray[i+1] == 0){
-            children[i].classList.remove('child-0');
+          else {
+            children[i].classList.remove('child-'+(childrenArray[i]-1))
+            console.log(childrenArray[i]);
           }
         }
         else {
-          children[i].classList.remove('child-'+childrenArray[i+1])
+          console.log("else")
+          children[i].classList.remove('child-'+childrenArray[i-1])
         }
         children[i].classList.add('child-'+childrenArray[i]);
+        //console.log(children[i].classList)
       }
     }
   },
