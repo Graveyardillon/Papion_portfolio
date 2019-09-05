@@ -166,7 +166,7 @@ export default {
       this.upUsers();
     }
   }
-},
+};
 
 </script>
 
