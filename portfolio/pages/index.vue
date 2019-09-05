@@ -155,9 +155,11 @@ export default {
       children[i].classList.add('child-'+this.childrenArray[i])
     }
 
-    for(let i = 0; i < 5; i++) {
-      this.upUsers();
-    }
+    this.$nextTick(() => {
+      for(let i = 0; i < 5; i++) {
+        this.upUsers();
+      }
+    })
   }
 }
 
