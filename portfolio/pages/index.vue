@@ -4,10 +4,17 @@
     <div class="topBar">
     </div>
 
+    
+    
     <div id="leftArea">
       <div v-for="(user, N) in users" :key="N"
         class="children">
         <div class="child">{{user.name}}</div>
+      </div>
+      
+      <div v-for="(user, N) in users" :key="N"
+        class="children2">
+        <div class="circle"></div>
       </div>
 
       <div class="arrowup" @click="upUsers()"></div>
@@ -79,7 +86,7 @@ export default {
           }
         }
         else {
-          children[i].classList.remove('child-'+childrenArray[i+1])
+          children[i].classList.remove('child-'+childrenArray[i+1]);
         }
         children[i].classList.add('child-'+childrenArray[i]);
       }
@@ -107,7 +114,7 @@ export default {
           }
         }
         else {
-          children[i].classList.remove('child-'+childrenArray[i+1])
+          children[i].classList.remove('child-'+childrenArray[i+1]);
         }
         children[i].classList.add('child-'+childrenArray[i]);
       }
@@ -119,14 +126,13 @@ export default {
     for(let i = 0; i < this.users.length; i++) {
       children = document.getElementsByClassName("children");
       childrenArray.push(6);
-      children[i].classList.add('child-'+childrenArray[i])
-    }
+      children[i].classList.add('child-'+childrenArray[i]);
 
     for(let i = 0; i < 5; i++) {
       this.upUsers();
     }
   }
-}
+},
 
 </script>
 
@@ -306,7 +312,24 @@ export default {
 
       visibility: hidden;
     }
-
+    
+    .circle{
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+      text-align:center;
+      line-height: 80px;
+      border-radius: 50%;
+      border: solid 3px skyblue;
+    }
+    
+    .circle-3{
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: skyblue;/*背景色*/
+    }
+    
     .arrowdown {
       position: absolute;
 
