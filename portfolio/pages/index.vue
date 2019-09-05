@@ -90,21 +90,46 @@ export default {
     circleUpdate: function(){
 
       var result1 = this.childrenArray.indexOf( 2 );
-      children3 = document.getElementsByClassName("children2");
-      children3[result1].classList.remove('circle-3');
-
       var result2 = this.childrenArray.indexOf( 4 );
-      children4 = document.getElementsByClassName("children2");
-      children4[result2].classList.remove('circle-3');
-
       var result = this.childrenArray.indexOf( 3 );
-      children2 = document.getElementsByClassName("children2");
-      children2[result].classList.add('circle-'+this.childrenArray[result]);
+      
+      if(result2 >1 && result1 <this.users.length-2){
+      
+        children3 = document.getElementsByClassName("children2");
+        children3[result1].classList.remove('circle-3');
+        
+        children4 = document.getElementsByClassName("children2");
+        children4[result2].classList.remove('circle-3');
+      
+        children2 = document.getElementsByClassName("children2");
+        children2[result].classList.add('circle-'+this.childrenArray[result]);
+      
+      }
+      
+      else if(result1 <= 1){
+        
+        children4 = document.getElementsByClassName("children2");
+        children4[1].classList.remove('circle-3');
+      
+        children2 = document.getElementsByClassName("children2");
+        children2[0].classList.add('circle-'+this.childrenArray[result]);
+        
+      }
+      
+      else if(result1 >= this.users.length-2){
+        
+        children4 = document.getElementsByClassName("children2");
+        children4[this.users.length-2].classList.remove('circle-3');
+        
+        children2 = document.getElementsByClassName("children2");
+        children2[this.users.length-1].classList.add('circle-'+this.childrenArray[result]);
+        
+      }
+      
+      else;
 
     },
-
-
-
+    
     upUsers: function() {
       if(this.childrenArray[0] > 0) {
         this.childrenArray.unshift(this.childrenArray[0]-1);
