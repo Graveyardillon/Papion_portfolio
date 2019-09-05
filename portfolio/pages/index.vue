@@ -4,21 +4,21 @@
     <div class="topBar">
     </div>
 
-
-
     <div id="leftArea">
       <div v-for="(user, N) in users" :key="N"
         class="children">
         <div class="child">{{user.name}}</div>
       </div>
-
-      <div v-for="(user, N) in users" :key="N"
-        class="children2">
-        <div class="circle"></div>
+        
+      <div class="circlePosition">
+        <div v-for="(user, N) in users" :key="N"
+          class="children2">
+          <div class="circle"></div>
+        </div>
       </div>
 
-      <div class="arrowup" @click="downUsers()"></div>
-      <div class="arrowdown" @click="upUsers()"></div>
+      <div class="arrowup" @click="downUsers(); circleUpdate()"></div>
+      <div class="arrowdown" @click="upUsers(); circleUpdate()"></div>
     </div>
 
     <div id="rightArea">
@@ -32,6 +32,9 @@
 <script>
 
 let children;
+let children2;
+let children3;
+let children4;
 
 export default {
   name: 'index',
@@ -83,6 +86,25 @@ export default {
   },
 
   methods: {
+    
+    circleUpdate: function(){
+      
+      var result1 = this.childrenArray.indexOf( 2 );
+      children3 = document.getElementsByClassName("children2");
+      children3[result1].classList.remove('circle-3');
+      
+      var result2 = this.childrenArray.indexOf( 4 );
+      children4 = document.getElementsByClassName("children2");
+      children4[result2].classList.remove('circle-3');
+      
+      var result = this.childrenArray.indexOf( 3 );
+      children2 = document.getElementsByClassName("children2");
+      children2[result].classList.add('circle-'+this.childrenArray[result]);
+      
+    },
+    
+    
+    
     upUsers: function() {
       if(this.childrenArray[0] > 0) {
         this.childrenArray.unshift(this.childrenArray[0]-1);
@@ -159,9 +181,9 @@ export default {
     for(let i = 0; i < this.users.length; i++) {
       children = document.getElementsByClassName("children");
       this.childrenArray.push(6);
-      children[i].classList.add('child-'+this.childrenArray[i])
+      children[i].classList.add('child-'+this.childrenArray[i]);
     }
-
+    
     for(let i = 0; i < 5; i++) {
       this.upUsers();
     }
@@ -360,20 +382,28 @@ export default {
     }
 
     .circle{
+      top:300px;
       display: inline-block;
-      width: 80px;
-      height: 80px;
+      width: 20px;
+      height: 20px;
       text-align:center;
       line-height: 80px;
       border-radius: 50%;
-      border: solid 3px skyblue;
+      border: solid 3px black;
     }
 
     .circle-3{
-      width: 80px;
-      height: 80px;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       background: skyblue;/*背景色*/
+    }
+    
+    .circlePosition{
+      position:absolute;
+      top: 39%;
+      left:5%;
     }
 
     .arrowdown {
